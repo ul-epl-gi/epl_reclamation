@@ -11,3 +11,4 @@ Route::get('/', function () {
 });
 
 Route::post('/telegram/bot', [TelegramBotController::class, 'getUpdates'])->name('TELEGRAM-BOT');
+Route::get('/telegram/eu-list', [TelegramBotController::class, 'sendList'])->name('TELEGRAM-UE-LIST');

@@ -7,12 +7,29 @@ use App\Services\Telegram\AnswerManger;
 use App\Utils\States;
 use Exception;
 use Illuminate\Support\Facades\Cache;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class Caching
 {
     public static function update(array $content)
     {
         $chat_id = $content['chat']['id'];
+        Telegram::sendMessage([
+            'chat_id' => $chat_id,
+            'text' => 'Choisir les ues concernées',
+            'reply_markup' => json_encode([
+                'inline_keyboard' => [
+                    [
+                        [
+                            'text' => 'Choisir les ues concernées',
+                            'web_app' => ['url'=> 'https://2dcc-102-64-166-222.ngrok-free.app/telegram/eu-list']
+                        ]
+                    ]
+                ]
+            ])
+        ]);
+        // Telegram::sendMessage(['chat_id' => $chat_id, 'text'=> 'ok']);
+        /* $chat_id = $content['chat']['id'];
         $state = 1;
         try {
             if (Cache::has($chat_id)) {
@@ -91,7 +108,7 @@ class Caching
 
         } catch (Exception $e) {
             info("Exception during caching " . $e);
-        }
+        }*/
     }
 
     /* private function cache(Reclamation $reclamation, int $state, $chat_id)
