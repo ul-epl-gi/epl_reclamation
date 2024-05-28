@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Specialty;
 use App\Services\Caching;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -26,7 +27,11 @@ class TelegramBotController extends Controller
         }
     }
 
-    public function sendList(){
-        return view('ue_list');
+    public function sendList($specialtyId, $semester)
+    {
+
+        $specialty = Specialty::findOrFail($specialtyId);
+        $teachingUnits = $specialty->teachingUnits()->where('semester', $semester)->get();
+        return view('ue_list', ['teachingUnits' => $teachingUnits]);
     }
 }
