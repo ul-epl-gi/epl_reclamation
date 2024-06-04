@@ -26,12 +26,4 @@ class TelegramBotController extends Controller
             Caching::update($update['message']);
         }
     }
-
-    public function sendList($specialtyId, $semester)
-    {
-
-        $specialty = Specialty::findOrFail($specialtyId);
-        $teachingUnits = $specialty->teachingUnits()->where('semester', $semester)->get();
-        return view('ue_list', ['teachingUnits' => $teachingUnits]);
-    }
 }
